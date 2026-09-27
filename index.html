@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConsultantAI - Prototipo de Consultoría</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #F7CAFA; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        h1 { color: #2B042E; text-align: center; }
+        textarea { width: 100%; height: 150px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 15px; box-sizing: border-box; }
+        button { background-color: #501054; color: white; border: none; padding: 10px 20px; font-size: 16px; border-radius: 4px; cursor: pointer; width: 100%; }
+        button:hover { background-color: #A710B2; }
+        .output { margin-top: 20px; background: #ecf0f1; padding: 15px; border-radius: 4px; display: none; }
+        ul { padding-left: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>MuchoTexto - Resume tus reuniones</h1>
+        <p>Pega la transcripción o notas de la entrevista con el cliente:</p>
+        <textarea id="transcripcion" placeholder="Ej: Nos reunimos con el cliente y hablamos de los requerimientos en los plazos y la necesidad de ajustar el presupuesto..."></textarea>
+        
+        <button onclick="procesarIA()">Procesar texto</button>
+        
+        <div id="resultado" class="output">
+            <h3>Resultado Generado por el Prototipo IA:</h3>
+            <p><strong>Resumen Ejecutivo:</strong> <span id="resumenText"></span></p>
+            <p><strong>Compromisos y Tareas Clave:</strong></p>
+            <ul id="tareasList"></ul>
+        </div>
+    </div>
+
+    <script>
+        function procesarIA() {
+            const texto = document.getElementById('transcripcion').value.trim();
+            if(!texto) {
+                alert('Por favor, ingresa texto para procesar.');
+                return;
+            }
+            
+            // Lógica heurística de procesamiento de lenguaje natural integrada
+            let resumen = "Reunión orientada a la revisión general de procesos operativos y coordinación de actividades.";
+            let tareas = "<li>Revisar puntos críticos conversados - Responsable: Equipo - Plazo: Por definir</li>";
+
+            const textoMin = texto.toLowerCase();
+            if (textoMin.includes('presupuesto') || textoMin.includes('costo') || textoMin.includes('financier')) {
+                resumen = "Reunión centrada en la optimización financiera, control de costos y revisión de viabilidad presupuestaria del proyecto.";
+                tareas = "<li>Actualizar planilla de costos y gastos - Responsable: Área Financiera - Plazo: 48 horas</li>" +
+                         "<li>Enviar propuesta de reestructuración - Responsable: Consultor Líder - Plazo: Viernes</li>";
+            } else if (textoMin.includes('plazo') || textoMin.includes('tiempo') || textoMin.includes('entrega')) {
+                resumen = "Reunión enfocada en la gestión de tiempos, cumplimiento de hitos críticos y mitigación de retrasos operativos.";
+                tareas = "<li>Ajustar carta Gantt y cronograma - Responsable: Jefe de Proyecto - Plazo: Mañana</li>" +
+                         "<li>Validar entregables con el cliente - Responsable: Contraparte - Plazo: 3 días</li>";
+            }
+
+            document.getElementById('resumenText').innerText = resumen;
+            document.getElementById('tareasList').innerHTML = tareas;
+            document.getElementById('resultado').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
